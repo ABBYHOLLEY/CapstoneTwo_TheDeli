@@ -121,8 +121,19 @@ public class UserInterface {
     public static void toasted(){}
 
     // Add-ons and checkout
-    public static void addDrink(){}
-    public static void addChips(){}
+    public static void addDrink(){
+        System.out.println("Would you like to add a drink? (1) Yes (2) No");
+        System.out.println("Selection: ");
+    }
+    public static void addChips(){
+        System.out.println("Would you like to add chips for $1.50? (true) Yes (false) No");
+        System.out.println("Selection: ");
+        boolean bagOfChips = commandScanner.nextBoolean(){
+            if (bagOfChips){//Figure out how to add a bag of chips to the order!!!
+            }
+
+        }
+    }
     public static void checkout(){
         int checkoutMenuCommand = -1;
         do {
