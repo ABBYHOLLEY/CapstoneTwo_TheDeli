@@ -128,11 +128,11 @@ public class UserInterface {
     public static void addChips(){
         System.out.println("Would you like to add chips for $1.50? (true) Yes (false) No");
         System.out.println("Selection: ");
-        boolean bagOfChips = commandScanner.nextBoolean(){
-            if (bagOfChips){//Figure out how to add a bag of chips to the order!!!
-            }
-
-        }
+//        boolean bagOfChips = commandScanner.nextBoolean(){
+////            if (bagOfChips){//Figure out how to add a bag of chips to the order!!!
+////            }
+//
+//        }
     }
     public static void checkout(){
         int checkoutMenuCommand = -1;
