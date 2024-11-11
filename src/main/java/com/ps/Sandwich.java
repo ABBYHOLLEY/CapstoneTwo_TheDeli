@@ -3,38 +3,72 @@ package com.ps;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sandwich {
-    private String bread;
-    private String size; // 4, 8, 12
+public class Sandwich extends Product {
+    private String breadType;
+    private int size; // 4, 8, 12
+    private boolean isToasted;
     private boolean extraMeat;
     private boolean extraCheese;
     private ArrayList<Topping> toppings;// Can have multiple toppings
 
-    public Sandwich(String bread, boolean extraCheese, String size, boolean extraMeat, ArrayList<String> toppings) {
-        this.bread = bread;
-        this.extraCheese = extraCheese;
+    public Sandwich(double price, String description, String breadType, int size, boolean isToasted, boolean extraMeat, boolean extraCheese, ArrayList<Topping> toppings) {
+        super(price, description);
+        this.breadType = breadType;
         this.size = size;
+        this.isToasted = isToasted;
         this.extraMeat = extraMeat;
-        this.toppings = new ArrayList<>();
+        this.extraCheese = extraCheese;
+        this.toppings = toppings;
+        calculatePrice();
+    }
+    private void calculatePrice(){
+
     }
 
-    public String getBread() {
-        return bread;
+    public String getBreadType() {
+        return breadType;
     }
 
-    public String getSize() {
+    public void setBreadType(String breadType) {
+        this.breadType = breadType;
+    }
+
+    public int getSize() {
         return size;
     }
 
-    public boolean hasExtraMeat() {
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public boolean isToasted() {
+        return isToasted;
+    }
+
+    public void setToasted(boolean toasted) {
+        isToasted = toasted;
+    }
+
+    public boolean isExtraMeat() {
         return extraMeat;
     }
 
-    public boolean hasExtraCheese() {
+    public void setExtraMeat(boolean extraMeat) {
+        this.extraMeat = extraMeat;
+    }
+
+    public boolean isExtraCheese() {
         return extraCheese;
     }
 
-    public List<Topping> getToppings() {
-        return this.toppings;
+    public void setExtraCheese(boolean extraCheese) {
+        this.extraCheese = extraCheese;
+    }
+    public ArrayList<Topping> getToppings() {
+        return toppings;
+    }
+    public void setToppings(ArrayList<Topping> toppings) {
+        this.toppings = toppings;
+        calculatePrice();
     }
 }

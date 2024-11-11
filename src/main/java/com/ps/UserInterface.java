@@ -115,9 +115,54 @@ public class UserInterface {
             }
         }while (sandwichMenuCommand != 0);
     }
-    public static void selectBread(){}
-    public static void selectSize(){}
-    public static void selectToppings(){}
+    public static void selectBread(){
+        System.out.println("Select your bread type:");
+        System.out.println("1)White");
+        System.out.println("2)Wheat");
+        System.out.println("3)Sourdough");
+        System.out.println("Please enter your choice: ");
+
+        int breadChoice = commandScanner.nextInt();
+        switch (breadChoice){
+            case 1:
+                System.out.println("White bread selected.");
+                break;
+            case 2:
+                System.out.println("Wheat bread selected.");
+                break;
+            case 3:
+                System.out.println("Sourdough bread selected.");
+                break;
+            default:
+                System.out.println("Invalid, try again.");
+        }
+    }
+    public static void selectSize(){
+        System.out.println("What size sandwich would you like?");
+        System.out.println("4) 4 inch sandwich");
+        System.out.println("8) 8 inch sandwich");
+        System.out.println("12) 12 inch sandwich");
+        System.out.println("Please enter your choice:");
+
+        int sandwichSizeChoice = commandScanner.nextInt();
+        switch (sandwichSizeChoice){
+            case 4:
+                System.out.println("4 inch");
+                break;
+            case 8:
+                System.out.println("8 inch");
+                break;
+            case 12:
+                System.out.println("12 inch");
+                break;
+            default:
+                System.out.println("Invalid. Please try again.");
+        }
+    }
+    public static void selectToppings(){
+        System.out.println("What toppings would you like?");
+        System.out.println("1)");
+    }
     public static void toasted(){}
 
     // Add-ons and checkout
