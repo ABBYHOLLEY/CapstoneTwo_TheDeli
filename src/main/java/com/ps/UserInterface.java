@@ -1,5 +1,6 @@
 package com.ps;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -7,8 +8,11 @@ public class UserInterface {
     static Scanner inputScanner = new Scanner(System.in);
     static Scanner commandScanner = new Scanner(System.in);
 
+    private static Order order = new Order();
+    Sandwich sandwich = new Sandwich();
+
     public static void mainMenu(){
-        int homeScreenCommand = -1;
+        int homeScreenCommand = 0;
         do {
             System.out.println("Welcome to Delicious ordering system!");
             System.out.println("What would you like to do?");
@@ -22,7 +26,7 @@ public class UserInterface {
             } catch (InputMismatchException ime){
                 System.out.println("Invalid. Please select correct menu option!");
                 commandScanner.nextLine();
-                homeScreenCommand = -1;
+                homeScreenCommand = 0;
             }
             switch (homeScreenCommand){
                 case 1:
@@ -38,7 +42,7 @@ public class UserInterface {
     }
     // Main order menu
     public static void startNewOrder(){
-        int newOrderCommand = -1;
+        int newOrderCommand = 0;
         do {
             System.out.println("Hello! What would you like to add to your order?");
             System.out.println("1) Add Sandwich");
@@ -52,7 +56,7 @@ public class UserInterface {
             }catch (InputMismatchException ime){
                 System.out.println("Invalid. Please try again.");
                 commandScanner.nextLine();
-                newOrderCommand = -1;
+                newOrderCommand = 0;
             }
             switch (newOrderCommand){
                 case 1:
@@ -79,7 +83,7 @@ public class UserInterface {
     }
     // Sandwich portion of nested menu
     public static void addSandwich(){
-        int sandwichMenuCommand = -1;
+        int sandwichMenuCommand = 0;
         do {
             System.out.println("Please create you sandwich!");
             System.out.println("1) Select your bread");
@@ -160,24 +164,85 @@ public class UserInterface {
         }
     }
     public static void selectToppings(){
-        System.out.println("What toppings would you like?");
-        System.out.println("1)");
-    }
-    public static void toasted(){}
+        System.out.println("What vegetable toppings would you like?");
+        System.out.println("Selection: ");
 
+        String[] toppingNames = {
+                "lettuce","peppers","onions","tomatoes","jalapenos","cucumbers","pickles","guacamole","mushrooms"
+        };
+        String selectedToppings = "";
+        int toppingSelectionCommand;
+
+        do {
+            for (int i=0;i<toppingNames.length;i++){
+                System.out.println(i+1+")"+toppingNames[i]);
+            }
+            System.out.println("0) Done");
+            toppingSelectionCommand = commandScanner.nextInt();
+            if (toppingSelectionCommand != 0) {
+                if (toppingSelectionCommand >= 1 && toppingSelectionCommand <= toppingNames.length) {
+                    String selectedTopping = toppingNames[toppingSelectionCommand - 1];
+                    if (selectedToppings.isEmpty()) {
+                        selectedToppings = selectedTopping;
+                    } else {
+                        selectedToppings += "," + selectedTopping;
+                    }
+                    System.out.println(selectedToppings + " has been added to sandwich.");
+                } else {
+                    System.out.println("Invalid. Please try again.");
+                }
+            }
+        }while (toppingSelectionCommand != 0);
+        System.out.println("These toppings have been added to your sandwich!"+ selectedToppings);
+    }
+    public static void toasted(){
+        System.out.println("Would you like your bread toasted?");
+    }
     // Add-ons and checkout
     public static void addDrink(){
-        System.out.println("Would you like to add a drink? (1) Yes (2) No");
+        System.out.println("Would you like to add a drink?");
+        System.out.println("What size drink would you like?");
         System.out.println("Selection: ");
+
+//        System.out.println("addDrink");
+        String[] drinkNames = {
+                "Dr.Pepper", "Sprite", "Hi-C","Power-ade", "Lemonade","Iced Tea", "Coke"
+        };
+        int drinkSelectionCommand;
+
+        do {
+            for (int i=0;i<drinkNames.length;i++){
+                System.out.println(i+1+")"+ drinkNames[i]);
+            }
+            System.out.println("0) Done");
+            drinkSelectionCommand = commandScanner.nextInt();
+            if (drinkSelectionCommand != 0){
+                int index = drinkSelectionCommand-1;
+                order.addDrink(drinkNames[index]);
+            }
+        }while (drinkSelectionCommand != 0);
     }
+
     public static void addChips(){
-        System.out.println("Would you like to add chips for $1.50? (true) Yes (false) No");
+        System.out.println("Would you like to add Delicious kettle cooked chips for $1.50?");
         System.out.println("Selection: ");
-//        boolean bagOfChips = commandScanner.nextBoolean(){
-////            if (bagOfChips){//Figure out how to add a bag of chips to the order!!!
-////            }
-//
-//        }
+        String[] chipNames = {
+                "Original", "Salt and Vinegar","Barbeque","Pickle","Jalapeno"
+        };
+        int chipSelectionCommand;
+        do {
+            for (int i=0;i<chipNames.length;i++){
+                System.out.println(i+1+")"+ chipNames[i]);
+            }
+            System.out.println("0) Done");
+            chipSelectionCommand = commandScanner.nextInt();
+            if (chipSelectionCommand != 0){
+                int index = chipSelectionCommand-1;
+                order.addBagOfChips(chipNames[index]);
+            }
+        }while (chipSelectionCommand !=0);
+
+
     }
     public static void checkout(){
         int checkoutMenuCommand = -1;

@@ -5,23 +5,41 @@ import java.util.List;
 
 public class Sandwich extends Product {
     private String breadType;
-    private int size; // 4, 8, 12
+    private double size; // 4, 8, 12 price is based on size
     private boolean isToasted;
     private boolean extraMeat;
     private boolean extraCheese;
     private ArrayList<Topping> toppings;// Can have multiple toppings
+    private double price;
 
-    public Sandwich(double price, String description, String breadType, int size, boolean isToasted, boolean extraMeat, boolean extraCheese, ArrayList<Topping> toppings) {
-        super(price, description);
+    @Override
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Sandwich(double price, String description, String breadType, double size, boolean isToasted, boolean extraMeat, boolean extraCheese, ArrayList<Topping> toppings) {
+        super(0.00, "Sandwich");//Place holders
         this.breadType = breadType;
         this.size = size;
         this.isToasted = isToasted;
         this.extraMeat = extraMeat;
         this.extraCheese = extraCheese;
         this.toppings = toppings;
+        this.price = price;
         calculatePrice();
     }
+
+    public Sandwich() {
+
+    }
+
     private void calculatePrice(){
+        size = price;
+
 
     }
 
@@ -33,12 +51,13 @@ public class Sandwich extends Product {
         this.breadType = breadType;
     }
 
-    public int getSize() {
+    public double getSize() {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(double size) {
         this.size = size;
+        calculatePrice();
     }
 
     public boolean isToasted() {
@@ -55,6 +74,7 @@ public class Sandwich extends Product {
 
     public void setExtraMeat(boolean extraMeat) {
         this.extraMeat = extraMeat;
+        calculatePrice();
     }
 
     public boolean isExtraCheese() {
@@ -63,12 +83,13 @@ public class Sandwich extends Product {
 
     public void setExtraCheese(boolean extraCheese) {
         this.extraCheese = extraCheese;
+        calculatePrice();
     }
     public ArrayList<Topping> getToppings() {
         return toppings;
     }
     public void setToppings(ArrayList<Topping> toppings) {
         this.toppings = toppings;
-        calculatePrice();
+        calculatePrice();//Calculate price when toppings change
     }
 }
