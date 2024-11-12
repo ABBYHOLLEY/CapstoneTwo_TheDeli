@@ -9,7 +9,7 @@ public class UserInterface {
     static Scanner commandScanner = new Scanner(System.in);
 
     private static Order order = new Order();
-    Sandwich sandwich = new Sandwich();
+    static Sandwich sandwich = new Sandwich();
 
     public static void mainMenu(){
         int homeScreenCommand = 0;
@@ -85,7 +85,7 @@ public class UserInterface {
     public static void addSandwich(){
         int sandwichMenuCommand = 0;
         do {
-            System.out.println("Please create you sandwich!");
+            System.out.println("Please create your sandwich!");
             System.out.println("1) Select your bread");
             System.out.println("2) Select your sandwich size");
             System.out.println("3) Select your toppings(Meat, Cheese, Extras, Sauces)");
@@ -127,41 +127,51 @@ public class UserInterface {
         System.out.println("Please enter your choice: ");
 
         int breadChoice = commandScanner.nextInt();
+        String selectedBread = "";
+
         switch (breadChoice){
             case 1:
-                System.out.println("White bread selected.");
+                selectedBread = "White bread selected.";
                 break;
             case 2:
-                System.out.println("Wheat bread selected.");
+                selectedBread = "Wheat bread selected.";
                 break;
             case 3:
-                System.out.println("Sourdough bread selected.");
+                selectedBread = "Sourdough bread selected.";
                 break;
             default:
                 System.out.println("Invalid, try again.");
+                return;
         }
+        //System.out.println("You have chosen "+ breadChoice + " for your bread");
+        sandwich.setBreadType(selectedBread);
+        System.out.println(selectedBread);
     }
     public static void selectSize(){
         System.out.println("What size sandwich would you like?");
-        System.out.println("4) 4 inch sandwich");
-        System.out.println("8) 8 inch sandwich");
-        System.out.println("12) 12 inch sandwich");
+        System.out.println("4) 4 inch sandwich($5.50)");
+        System.out.println("8) 8 inch sandwich($7.00)");
+        System.out.println("12) 12 inch sandwich($8.50)");
         System.out.println("Please enter your choice:");
 
         int sandwichSizeChoice = commandScanner.nextInt();
+        double size = 0.0;
+
         switch (sandwichSizeChoice){
             case 4:
-                System.out.println("4 inch");
+                size = 5.50;
                 break;
             case 8:
-                System.out.println("8 inch");
+                size = 7.00;
                 break;
             case 12:
-                System.out.println("12 inch");
+               size = 8.50;
                 break;
             default:
                 System.out.println("Invalid. Please try again.");
+                return;
         }
+        System.out.println("You have chosen a "+sandwichSizeChoice + " inch sandwich");
     }
     public static void selectToppings(){
         System.out.println("What vegetable toppings would you like?");
@@ -196,29 +206,61 @@ public class UserInterface {
         System.out.println("These toppings have been added to your sandwich!"+ selectedToppings);
     }
     public static void toasted(){
-        System.out.println("Would you like your bread toasted?");
+        System.out.println("Would you like your bread toasted? (Y/N)");
+        String toastedChoice = commandScanner.next();
+
+        if (toastedChoice.equalsIgnoreCase("Y")){
+            sandwich.setToasted(true);
+            System.out.println("Your sandwich will be toasted.");
+        } else if (toastedChoice.equalsIgnoreCase("N")) {
+            sandwich.setToasted(false);
+            System.out.println("Your sandwich will not be toasted.");
+        } else {
+            System.out.println("Invalid, input Y or N!");
+        }
     }
     // Add-ons and checkout
     public static void addDrink(){
         System.out.println("Would you like to add a drink?");
-        System.out.println("What size drink would you like?");
+        System.out.println("What kind of drink would you like?");
         System.out.println("Selection: ");
 
 //        System.out.println("addDrink");
         String[] drinkNames = {
                 "Dr.Pepper", "Sprite", "Hi-C","Power-ade", "Lemonade","Iced Tea", "Coke"
         };
-        int drinkSelectionCommand;
+        double[] smallDrinkPrice = {2.00,2.00,2.00,2.00,2.00,2.00,2.00};
+        double[] mediumDrinkPrice = {2.50,2.50,2.50,2.50,2.50,2.50,2.50};
+        double[] largeDrinkPrice = {3.00,3.00,3.00,3.00,3.00,3.00,3.00,};
 
+        int drinkSelectionCommand;
         do {
             for (int i=0;i<drinkNames.length;i++){
                 System.out.println(i+1+")"+ drinkNames[i]);
             }
             System.out.println("0) Done");
             drinkSelectionCommand = commandScanner.nextInt();
+
             if (drinkSelectionCommand != 0){
                 int index = drinkSelectionCommand-1;
-                order.addDrink(drinkNames[index]);
+
+                System.out.println("Please select what size drink you would like.");
+                System.out.println("1) Small ($2.00)");
+                System.out.println("2) Medium ($2.50)");
+                System.out.println("3) Large ($3.00)");
+
+                int sizeSelection = commandScanner.nextInt();
+                double selectedDrinkPrice = 0;
+
+                switch (sizeSelection){
+                    case 1:
+                        selectedDrinkPrice = smallDrinkPrice[index];
+                        System.out.println("You selected a small for "+ selectedDrinkPrice);
+                        break;
+                    case 2:
+                        selectedDrinkPrice = mediumDrinkPrice[index];
+                        System.out.println("You selected a small for "+ selectedDrinkPrice);
+                }
             }
         }while (drinkSelectionCommand != 0);
     }
@@ -240,6 +282,7 @@ public class UserInterface {
                 int index = chipSelectionCommand-1;
                 order.addBagOfChips(chipNames[index]);
             }
+            System.out.println("You have added "+chipSelectionCommand+" chips");
         }while (chipSelectionCommand !=0);
 
 
@@ -266,3 +309,5 @@ public class UserInterface {
     }
     public static void confirmOrder(){}
 }
+
+

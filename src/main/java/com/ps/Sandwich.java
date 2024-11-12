@@ -5,12 +5,20 @@ import java.util.List;
 
 public class Sandwich extends Product {
     private String breadType;
-    private double size; // 4, 8, 12 price is based on size
+    private double size ; // 4, 8, 12 price is based on size
     private boolean isToasted;
     private boolean extraMeat;
     private boolean extraCheese;
     private ArrayList<Topping> toppings;// Can have multiple toppings
     private double price;
+
+    private double extraMeatPrice4 = .50;
+    private double extraMeatPrice8 = 1.00;
+    private double extraMeatPrice12 = 1.50;
+
+    private double extraCheesePrice4 = .30;
+    private double extraCheesePrice8 = .60;
+    private double extraCheesePrice12 = .90;
 
     @Override
     public double getPrice() {
@@ -34,13 +42,17 @@ public class Sandwich extends Product {
     }
 
     public Sandwich() {
-
+        this.toppings = new ArrayList<>();
     }
 
     private void calculatePrice(){
         size = price;
-
-
+        if (extraMeat){
+            size += getPrice();
+        }
+        if (extraCheese){
+            size += getPrice();
+        }
     }
 
     public String getBreadType() {
