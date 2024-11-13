@@ -1,19 +1,33 @@
 package com.ps;
 
-public class Drink {
-    private String getName;
-    private double getPrice;
+public class Drink extends Product {
+    private String drinkSize;
 
-    public Drink(String getName, double getPrice) {
-        this.getName = getName;
-        this.getPrice = getPrice;
+    public Drink(double price, String name, String description, String drinkSize) {
+        super(price, name, description);
+        this.drinkSize = drinkSize;
     }
 
-    public String getGetName() {
-        return getName;
+    public String getDrinkSize() {
+        return drinkSize;
     }
 
-    public double getGetPrice() {
-        return getPrice;
+    public void setDrinkSize(String drinkSize) {
+        this.drinkSize = drinkSize;
+    }
+    @Override
+    public double getPrice() {
+        return price; // Price comes from the Product class
+    }
+
+    @Override
+    public String getDescription() {
+        return description + " (" + drinkSize + ")"; // Combine description with the size of the drink
+    }
+
+    @Override
+    public String getName() {
+        return name; // Return the name of the drink
     }
 }
+

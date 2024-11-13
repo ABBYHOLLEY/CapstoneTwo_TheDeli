@@ -10,6 +10,22 @@ public class UserInterface {
 
     private static Order order = new Order();
     static Sandwich sandwich = new Sandwich();
+    static Product products = new Product() {
+        @Override
+        public double getPrice() {
+            return super.getPrice();
+        }
+
+        @Override
+        public String getDescription() {
+            return super.getDescription();
+        }
+
+        @Override
+        public String getName() {
+            return "";
+        }
+    };
 
     public static void mainMenu(){
         int homeScreenCommand = 0;
@@ -42,9 +58,14 @@ public class UserInterface {
     }
     // Main order menu
     public static void startNewOrder(){
+        System.out.println("Please enter your name!");
+        commandScanner.nextLine();
+        String customerName = commandScanner.nextLine();
+
         int newOrderCommand = 0;
         do {
-            System.out.println("Hello! What would you like to add to your order?");
+
+            System.out.println("What would you like to add to your order?");
             System.out.println("1) Add Sandwich");
             System.out.println("2) Add Drink");
             System.out.println("3) Add Chips");
@@ -69,7 +90,7 @@ public class UserInterface {
                     addChips();
                     break;
                 case 4:
-                    checkout();
+                    checkout(customerName);
                     break;
                 case 0:
                     System.out.println("Cancelling order.....");
@@ -143,7 +164,6 @@ public class UserInterface {
                 System.out.println("Invalid, try again.");
                 return;
         }
-        //System.out.println("You have chosen "+ breadChoice + " for your bread");
         sandwich.setBreadType(selectedBread);
         System.out.println(selectedBread);
     }
@@ -235,7 +255,7 @@ public class UserInterface {
 
         int drinkSelectionCommand;
         do {
-            for (int i=0;i<drinkNames.length;i++){
+            for (int i=0;i< drinkNames.length;i++){
                 System.out.println(i+1+")"+ drinkNames[i]);
             }
             System.out.println("0) Done");
@@ -251,18 +271,33 @@ public class UserInterface {
 
                 int sizeSelection = commandScanner.nextInt();
                 double selectedDrinkPrice = 0;
+                String size = "";
 
                 switch (sizeSelection){
                     case 1:
                         selectedDrinkPrice = smallDrinkPrice[index];
+                        size = "Small";
                         System.out.println("You selected a small for "+ selectedDrinkPrice);
                         break;
                     case 2:
                         selectedDrinkPrice = mediumDrinkPrice[index];
-                        System.out.println("You selected a small for "+ selectedDrinkPrice);
+                        size = "Medium";
+                        System.out.println("You selected a small for " + selectedDrinkPrice);
+                        break;
+                    case 3:
+                        selectedDrinkPrice = largeDrinkPrice[index];
+                        size = "Large";
+                        System.out.println("You selected a small for " + selectedDrinkPrice);
+                        break;
+                    default:
+                        System.out.println("Invalid, please try again!");
                 }
+                Drink drink = new Drink(selectedDrinkPrice, drinkNames[index], drinkNames[index], size);
+                order.addDrink(drink);
+                System.out.println("You added a " + drink.getDescription() + " for $" + drink.getPrice());
+
             }
-        }while (drinkSelectionCommand != 0);
+        }while (drinkSelectionCommand != 0);// Repeat until user hits 0
     }
 
     public static void addChips(){
@@ -287,7 +322,7 @@ public class UserInterface {
 
 
     }
-    public static void checkout(){
+    public static void checkout(String customerName){
         int checkoutMenuCommand = -1;
         do {
             System.out.println("Thank you for visiting Delicious! Would you like to confirm your order?");
@@ -300,14 +335,34 @@ public class UserInterface {
             commandScanner.nextLine();
         }switch (checkoutMenuCommand){
                 case 1:
-                    confirmOrder();
+                    confirmOrder(customerName);
                     break;
                 case 0:
                     System.out.println("Cancelling order and returning to home screen...");
-        }
+                default:
+                    System.out.println("Command not found, please try again.");
+
+         }
         }while (checkoutMenuCommand != 0);
     }
-    public static void confirmOrder(){}
+    public static void confirmOrder(String customerName){
+        String receipt = "------Delicious Receipt------\n";
+        receipt += "Customer Name: "+ customerName + "\n";
+        receipt += "--------------------\n";
+
+        double orderTotal = 0;
+
+        for (Product product : order.getProduct()){
+            if (product != null){
+                receipt += product.getName() + "$" + product.getPrice()+"\n";
+                orderTotal += product.getPrice();}
+        }
+        receipt +="-------------------\n";
+        receipt += "Total: $" + orderTotal + "\n";
+        receipt += "Thank you for your order, please come again!\n";
+        receipt += "-------------------";
+
+        FileManager.writeReceiptToFile(receipt);
+        System.out.println(receipt);
+    }
 }
-
-

@@ -1,6 +1,6 @@
 package com.ps;
 
-public class BagOfChips {
+public class BagOfChips extends Product{
     private String name;
     private double price;
 

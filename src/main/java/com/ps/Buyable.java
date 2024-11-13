@@ -1,6 +1,6 @@
 package com.ps;
-
+// Interface for methods for buyable items in deli
 public interface Buyable {
-    double getPrice();
-    String getDescription();
+    double getPrice(); //gets price of product
+    String getDescription();//gets description of product
 }

@@ -3,20 +3,26 @@ package com.ps;
 import java.util.ArrayList;
 
 public class Order {
-    private ArrayList<Product> product;
+    private ArrayList<Product> products;
 
     public Order() {
-        this.product = product;
+        this.products = new ArrayList<>();
     }
 
     public ArrayList<Product> getProduct() {
-        return product;
+        return products;
     }
 
-    public void addDrink(String drinkName) {
-
+    public void addBagOfChips(String bagOfChipsName) {
+        BagOfChips bagOfChips = new BagOfChips();
+        products.add(bagOfChips);
+    }
+    public void addDrink(Drink drink) {
+        products.add(drink);
     }
 
-    public void addBagOfChips(String chipName) {
+    public void addSandwich(Sandwich sandwich) {
+        products.add(sandwich);
     }
 }
+
