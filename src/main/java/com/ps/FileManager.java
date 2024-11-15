@@ -12,7 +12,7 @@ public class FileManager {
 
         try (FileWriter writer = new FileWriter(fileName)) {
             writer.write(receipt);
-            System.out.println("Receipt has been written to " + fileName);
+            System.out.println("\u001B[37m"+"Receipt has been written to " + fileName);
 
         } catch (IOException e) {
             System.out.println("ERROR" + e.getMessage());

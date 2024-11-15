@@ -1,0 +1,8 @@
+------Delicious Receipt------
+Customer Name: a
+------------------------
+Hi-C - $3.0
+---------------------------------
+[32mTotal: $3.0
+[36mThank you for your order, please come again!
+-------------------------------

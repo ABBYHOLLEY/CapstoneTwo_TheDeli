@@ -1,0 +1,8 @@
+[36m------Delicious Receipt------
+[35mCustomer Name: Abby
+------------------------
+Sprite - $2.5
+---------------------------------
+[32mTotal: $2.5
+[36mThank you for your order, please come again!
+-------------------------------

@@ -1,0 +1,8 @@
+[36m------Delicious Receipt------
+[35mCustomer Name: Abby
+[36m------------------------
+Bag of Chips[32m - $1.5
+[36m---------------------------------
+[32mTotal: $1.5
+[36mThank you for your order, please come again!
+-------------------------------

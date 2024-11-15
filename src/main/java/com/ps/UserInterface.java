@@ -5,6 +5,13 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserInterface {
+
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+
     static Scanner inputScanner = new Scanner(System.in);
     static Scanner commandScanner = new Scanner(System.in);
 
@@ -432,20 +439,20 @@ public class UserInterface {
         }while (checkoutMenuCommand != 0);
     }
     public static void confirmOrder(String customerName){
-        String receipt = "------Delicious Receipt------\n";
-        receipt += "Customer Name: "+ customerName + "\n";
-        receipt += "------------------------\n";
+        String receipt = "\u001B[36m"+"------Delicious Receipt------\n";
+        receipt += "\u001B[35m"+"Customer Name: "+ customerName + "\n";
+        receipt +="\u001B[36m" + "------------------------\n";
 
         double orderTotal = 0;
 
         for (Product product : order.getProduct()){
             System.out.println(product); //Making sure that price is displayed
-            receipt += product.getName() + " - $" + product.getPrice() + "\n";
+            receipt += product.getName() +"\u001B[32m" + " - $" + product.getPrice() + "\n";
             orderTotal += product.getPrice(); // Adding price to the total
         }
-        receipt +="---------------------------------\n";
-        receipt += "Total: $" + orderTotal + "\n";
-        receipt += "Thank you for your order, please come again!\n";
+        receipt +="\u001B[36m"+"---------------------------------\n";
+        receipt +="\u001B[32m" + "Total: $" + orderTotal + "\n";
+        receipt += "\u001B[36m"+"Thank you for your order, please come again!\n";
         receipt += "-------------------------------";
 
         System.out.println(receipt);
