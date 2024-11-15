@@ -1,7 +1,8 @@
 # Delicious Application
-### This capstone is a sandwich shop ordering system. It lets the user customize their own sandwiches, add chips, drinks and special sauces.
-### Needs improvements in the Sandwich class and allowing the user to add sauces.
+#### This capstone is a sandwich shop ordering system. It lets the user customize their own sandwiches, add chips, drinks and special sauces.
+#### Needs improvements in the Sandwich class and allowing the user to add sauces.
 # Main Menu
+!![MAINMENU2.JPG](MAINMENU2.JPG)
 ![Code](MainMenu1.JPG)
 # Sandwich Menu
 ![Code](AddSandwich1.JPG)
@@ -11,3 +12,5 @@
 ![Code](FileManager1.JPG)
 # Buyable Interface
 ![Code](BuyableInterface1.JPG)
+# Favorite piece of code
+![CheckoutConfirm.JPG](CheckoutConfirm.JPG)

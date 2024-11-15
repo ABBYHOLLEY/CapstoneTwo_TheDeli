@@ -168,9 +168,10 @@ public class UserInterface {
     }
     public static void selectBread(){
         System.out.println("Select your bread type:");
-        System.out.println("1)White");
-        System.out.println("2)Wheat");
-        System.out.println("3)Sourdough");
+        System.out.println("1) White");
+        System.out.println("2) Wheat");
+        System.out.println("3) Sourdough");
+        System.out.println("4) Rye");
         System.out.println("Please enter your choice: ");
 
         int breadChoice = commandScanner.nextInt();
@@ -185,6 +186,9 @@ public class UserInterface {
                 break;
             case 3:
                 selectedBread = "Sourdough bread selected.";
+                break;
+            case 4:
+                selectedBread = "Rye bread selected.";
                 break;
             default:
                 System.out.println("Invalid, try again.");
