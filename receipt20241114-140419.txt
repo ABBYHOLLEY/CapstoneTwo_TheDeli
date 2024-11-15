@@ -1,0 +1,9 @@
+------Delicious Receipt------
+Customer Name: a
+------------------------
+Sandwich: White bread selected. 12.0 inch sandwich true - $15.15
+Sprite - $3.0
+---------------------------------
+Total: $18.15
+Thank you for your order, please come again!
+-------------------------------

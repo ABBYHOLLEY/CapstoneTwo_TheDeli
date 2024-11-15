@@ -1,0 +1,8 @@
+------Delicious Receipt------
+Customer Name: Abby
+------------------------
+Sandwich: White bread selected. 12.0 inch sandwich false - $18.15
+---------------------------------
+Total: $18.15
+Thank you for your order, please come again!
+-------------------------------

@@ -29,5 +29,14 @@ public class Drink extends Product {
     public String getName() {
         return name; // Return the name of the drink
     }
+
+    @Override
+    public String toString() {
+        return "Drink{" +
+                "drinkSize='" + drinkSize + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }
 

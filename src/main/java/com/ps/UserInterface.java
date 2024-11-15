@@ -23,7 +23,7 @@ public class UserInterface {
 
         @Override
         public String getName() {
-            return "";
+            return " ";
         }
     };
 
@@ -109,8 +109,11 @@ public class UserInterface {
             System.out.println("Please create your sandwich!");
             System.out.println("1) Select your bread");
             System.out.println("2) Select your sandwich size");
-            System.out.println("3) Select your toppings(Meat, Cheese, Extras, Sauces)");
+            System.out.println("3) Select your vegetable toppings");
             System.out.println("4) Would you like the sandwich toasted? (Y)es (N)o");
+            System.out.println("5) Select cheese");
+            System.out.println("6) Select meat");
+            System.out.println("7) Add a side");
             System.out.println("0) Exit to main menu");
 
             try { sandwichMenuCommand = commandScanner.nextInt();
@@ -132,6 +135,15 @@ public class UserInterface {
                 case 4:
                     toasted();
                     break;
+                case 5:
+                    addCheese();
+                    break;
+                case 6:
+                    addMeat();
+                    break;
+                case 7:
+                    addSide();
+                    break;
                 case 0:
                     System.out.println("Going back to main menu....");
                 default:
@@ -139,6 +151,13 @@ public class UserInterface {
 
             }
         }while (sandwichMenuCommand != 0);
+        if (sandwich != null){
+            order.addSandwich(sandwich);
+            System.out.println("Your sandwich has been added to the order!");
+
+        }else {
+            System.out.println("No sandwich selected..");
+        }
     }
     public static void selectBread(){
         System.out.println("Select your bread type:");
@@ -198,9 +217,9 @@ public class UserInterface {
         System.out.println("Selection: ");
 
         String[] toppingNames = {
-                "lettuce","peppers","onions","tomatoes","jalapenos","cucumbers","pickles","guacamole","mushrooms"
+                "lettuce","peppers","onions","tomatoes","jalapenos","cucumbers","pickles","guacamole","mushrooms","mayo","mustard","ketchup","ranch","thousand island", "vinaigrette"
         };
-        String selectedToppings = "";
+        ArrayList<Topping> selectedToppings = new ArrayList<>();
         int toppingSelectionCommand;
 
         do {
@@ -211,19 +230,21 @@ public class UserInterface {
             toppingSelectionCommand = commandScanner.nextInt();
             if (toppingSelectionCommand != 0) {
                 if (toppingSelectionCommand >= 1 && toppingSelectionCommand <= toppingNames.length) {
-                    String selectedTopping = toppingNames[toppingSelectionCommand - 1];
-                    if (selectedToppings.isEmpty()) {
-                        selectedToppings = selectedTopping;
-                    } else {
-                        selectedToppings += "," + selectedTopping;
-                    }
-                    System.out.println(selectedToppings + " has been added to sandwich.");
+                    Topping topping = new Topping(toppingNames[toppingSelectionCommand-1], "Sandwich toppings",1.00);
+                    selectedToppings.add(topping);//Adds topping to list
+                    System.out.println(toppingNames[toppingSelectionCommand-1]+ " has been added to the sandwich.");
                 } else {
                     System.out.println("Invalid. Please try again.");
                 }
             }
         }while (toppingSelectionCommand != 0);
-        System.out.println("These toppings have been added to your sandwich!"+ selectedToppings);
+
+        sandwich.setToppings(selectedToppings);
+        System.out.println("These toppings have been added to your sandwich!");
+        for (Topping topping: selectedToppings){
+            System.out.println(topping.getName());
+        }
+
     }
     public static void toasted(){
         System.out.println("Would you like your bread toasted? (Y/N)");
@@ -239,6 +260,71 @@ public class UserInterface {
             System.out.println("Invalid, input Y or N!");
         }
     }
+    public static void addCheese(){
+        System.out.println("Please select cheese preference");
+        String[] cheeseNames = {"american","provolone","cheddar","swiss"};
+        int cheeseSelectionCommand;
+        do {
+            for (int i=0;i< cheeseNames.length;i++){
+                System.out.println(i+1+") " + cheeseNames[i]);
+            }
+            System.out.println("0) Done");
+            cheeseSelectionCommand = commandScanner.nextInt();
+            if (cheeseSelectionCommand != 0){
+                int index = cheeseSelectionCommand-1;
+                sandwich.addCheese(cheeseNames[index]);
+            }
+        }while (cheeseSelectionCommand != 0);
+        System.out.println("Would you like to add extra cheese?");
+        System.out.println("1) Yes (additional charge)");
+        System.out.println("0) No");
+
+        int extraCheeseCommand = commandScanner.nextInt();
+        if (extraCheeseCommand == 1){
+            sandwich.addExtraCheese();
+            System.out.println("Extra cheese added to sandwich!");
+        }else{
+            System.out.println("No extra cheese selected.");
+        }
+
+    }
+
+    public static void addMeat(){
+        System.out.println("Please select meat preference");
+        String[] meatNames = {"steak","ham","salami","roast beef","chicken","bacon"};
+        int meatSelectionCommand;
+        do {
+            for (int i=0;i< meatNames.length;i++){
+                System.out.println(i+1+")"+ meatNames[i]);
+            }
+            System.out.println("0)Done");
+            meatSelectionCommand = commandScanner.nextInt();
+            if (meatSelectionCommand != 0){
+                int index = meatSelectionCommand-1;
+                sandwich.addMeat(meatNames[index]);
+            }
+        }while (meatSelectionCommand != 0);
+        System.out.println("Would you like to add extra meat?");
+        System.out.println("1) Yes (additional charge)");
+        System.out.println("0) No");
+
+        int extraMeatCommand = commandScanner.nextInt();
+
+        if (extraMeatCommand == 1){
+            sandwich.addExtraMeat();
+            System.out.println("Extra meat added to sandwich!");
+        }else {
+            System.out.println("No extra meat added.");
+        }
+    }
+    public static void addSide() {
+        System.out.println("Please select what sides you would like: ");
+
+        String[] sideNames = {"Au Jus", "BBQ Sauce", "Honey Mustard", "Fry Sauce"};
+        int sideSelectionCommand;
+    }
+
+
     // Add-ons and checkout
     public static void addDrink(){
         System.out.println("Would you like to add a drink?");
@@ -294,7 +380,7 @@ public class UserInterface {
                 }
                 Drink drink = new Drink(selectedDrinkPrice, drinkNames[index], drinkNames[index], size);
                 order.addDrink(drink);
-                System.out.println("You added a " + drink.getDescription() + " for $" + drink.getPrice());
+                System.out.println("You added a " + drink.getDescription() + " for $" + drink.getPrice()+selectedDrinkPrice);
 
             }
         }while (drinkSelectionCommand != 0);// Repeat until user hits 0
@@ -348,21 +434,22 @@ public class UserInterface {
     public static void confirmOrder(String customerName){
         String receipt = "------Delicious Receipt------\n";
         receipt += "Customer Name: "+ customerName + "\n";
-        receipt += "--------------------\n";
+        receipt += "------------------------\n";
 
         double orderTotal = 0;
 
         for (Product product : order.getProduct()){
-            if (product != null){
-                receipt += product.getName() + "$" + product.getPrice()+"\n";
-                orderTotal += product.getPrice();}
+            System.out.println(product); //Making sure that price is displayed
+            receipt += product.getName() + " - $" + product.getPrice() + "\n";
+            orderTotal += product.getPrice(); // Adding price to the total
         }
-        receipt +="-------------------\n";
+        receipt +="---------------------------------\n";
         receipt += "Total: $" + orderTotal + "\n";
         receipt += "Thank you for your order, please come again!\n";
-        receipt += "-------------------";
+        receipt += "-------------------------------";
 
-        FileManager.writeReceiptToFile(receipt);
         System.out.println(receipt);
+        FileManager.writeReceiptToFile(receipt);
+
     }
 }

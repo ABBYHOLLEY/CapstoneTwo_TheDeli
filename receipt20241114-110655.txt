@@ -1,8 +1,10 @@
 ------Delicious Receipt------
 Customer Name: Abby
 --------------------
-Sandwich: White bread selected. 12.0 inchtrue - $8.5
+Sandwich: White bread selected. 12.0 inch sandwich true - $11.5
+Sprite - $3.0
+Bag of Chips - $1.5
 -------------------
-Total: $8.5
+Total: $16.0
 Thank you for your order, please come again!
 -------------------

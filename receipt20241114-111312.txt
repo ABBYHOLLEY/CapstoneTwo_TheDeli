@@ -1,0 +1,8 @@
+------Delicious Receipt------
+Customer Name: abby
+------------------------
+Sandwich: Wheat bread selected. 12.0 inch sandwich true - $11.5
+---------------------------------
+Total: $11.5
+Thank you for your order, please come again!
+-------------------------------

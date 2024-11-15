@@ -6,18 +6,26 @@ public class Sandwich extends Product {
     private String breadType;
     private double size; // 4, 8, 12 price based on size
     private boolean toasted;
+    private String cheese;
+    private String meat;
     private boolean extraMeat;
     private boolean extraCheese;
-    private ArrayList<Topping> toppings; // Can have multiple toppings
+    private ArrayList<Topping> toppings = new ArrayList<>();// Can have multiple toppings
     private double price;
 
-    private double extraMeatPrice4 = 0.50;
-    private double extraMeatPrice8 = 1.00;
-    private double extraMeatPrice12 = 1.50;
+    private double cheesePrice;
+    private double extraCheesePrice;
 
-    private double extraCheesePrice4 = 0.30;
-    private double extraCheesePrice8 = 0.60;
-    private double extraCheesePrice12 = 0.90;
+    private double meatPrice;
+    private double extraMeatPrice;
+
+
+
+    public Sandwich(double price, String description, String name, String cheese, String meat) {
+        super(price, description, name);
+        this.cheese = cheese;
+        this.meat = meat;
+    }
 
     public Sandwich(double price, String description, String breadType, double size, boolean toasted, boolean extraMeat, boolean extraCheese, ArrayList<Topping> toppings) {
         super(0, "Custom Sandwich", "Sandwich"); //
@@ -33,23 +41,49 @@ public class Sandwich extends Product {
     private void calculatePrice() {
         // price based on size
         switch ((int) size) {
-            case 4: price = 5.50; break;
-            case 8: price = 7.00; break;
-            case 12: price = 8.50; break;
+            case 4:
+                price = 5.50;
+                cheesePrice = .75;
+                extraCheesePrice = .30;
+                meatPrice = 1.00;
+                extraMeatPrice = .50;
+                break;
+            case 8:
+                price = 7.00;
+                cheesePrice = 1.00;
+                extraCheesePrice = .60;
+                meatPrice = 2.00;
+                extraMeatPrice = 1.00;
+                break;
+            case 12:
+                price = 8.50;
+                cheesePrice = 1.25;
+                extraCheesePrice = .90;
+                meatPrice = 3.00;
+                extraMeatPrice = 1.50;
+                break;
+            default:
+                price = 0.00;
+                break;
         }
-        if (extraMeat) {
-            if (size == 4) price += extraMeatPrice4;
-            if (size == 8) price += extraMeatPrice8;
-            if (size == 12) price += extraMeatPrice12;
-        }
-        if (extraCheese) {
-            if (size == 4) price += extraCheesePrice4;
-            if (size == 8) price += extraCheesePrice8;
-            if (size == 12) price += extraCheesePrice12;
-        }
+
+        price += calculateToppingPrice();
+        System.out.println("Sandwich Price: $ "+ price);// Displaying the price to user
     }
+
+    private double calculateToppingPrice(){
+
+        if (size == 4){
+            return  1.00;
+        }else if (size==8){
+            return 2.00;
+        }else if (size == 12){
+            return 3.00;
+        } return 0.00;
+    }
+
     public Sandwich(){
-        this(8.00, "",  "White", 12.00, false, false, false,new ArrayList<>() );
+        this(8.50, "",  "White", 12., false, false, false,new ArrayList<>() );
     }
 
     public String getBreadType() {
@@ -72,24 +106,26 @@ public class Sandwich extends Product {
         return extraMeat;
     }
 
-    public void setExtraMeat(boolean extraMeat) {
-        this.extraMeat = extraMeat;
+    public void addExtraMeat() {
+        price += extraMeatPrice;
+        extraMeat = true;
     }
 
     public boolean isExtraCheese() {
         return extraCheese;
     }
 
-    public void setExtraCheese(boolean extraCheese) {
-        this.extraCheese = extraCheese;
+    public void addExtraCheese() {
+        price += extraCheesePrice;
+        extraCheese = true;
     }
 
-    public ArrayList<Topping> getToppings() {
+    public ArrayList<Topping>getToppings() {
         return toppings;
     }
 
-    public void setToppings(ArrayList<Topping> toppings) {
-        this.toppings = toppings;
+    public void addToppings(Topping topping) {
+        toppings.add(topping);
     }
 
     public void setPrice(double price) {
@@ -103,17 +139,73 @@ public class Sandwich extends Product {
         this.toasted = toasted;
     }
 
+    public String getCheese() {
+        return cheese;
+    }
+
+    public void addCheese(String cheese) {
+        this.cheese = cheese;
+        price += cheesePrice;
+    }
+
+    public String getMeat() {
+        return meat;
+    }
+
+    public void addMeat(String meat) {
+        this.meat = meat;
+        price += meatPrice;
+    }
+
     @Override
     public double getPrice() {
         return price;
     }
 
+//    @Override
+//    public String getDescription() {
+//        return breadType + " " + size + " inch sandwich "+ toppings + toasted;
+//
+//    }
+
     @Override
     public String getDescription() {
-        return breadType + " " + size + " inch sandwich"+ toasted;
+        String description = breadType + " " + size + " inch sandwich ";
+
+        description += toasted ? " toasted" : " not toasted";
+
+        // Let the user add topping, if any
+        if (!toppings.isEmpty()) {
+            description += " with toppings: ";
+
+            for (int i = 0; i < toppings.size(); i++) {
+                description += toppings.get(i).getName();
+                if (i < toppings.size() - 1) {
+                    description += ", ";
+                }
+            }
+        }
+
+        return description;
     }
+
     @Override
     public String getName() {
-        return "Sandwich: " + breadType + " " + size + " inch"+ toasted;
+        return "Sandwich: " + breadType + " " + size + " inch sandwich "+ toasted;
+    }
+
+    public void setToppings(ArrayList<Topping> toppings) {
+        this.toppings = toppings;
+    }
+
+    @Override
+    public String toString() {
+        return "Sandwich{" +
+                "description='" + description + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", size=" + size +
+                ", toppings=" + toppings +
+                '}';
     }
 }

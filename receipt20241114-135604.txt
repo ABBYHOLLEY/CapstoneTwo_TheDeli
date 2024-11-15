@@ -1,0 +1,7 @@
+------Delicious Receipt------
+Customer Name: A
+------------------------
+---------------------------------
+Total: $0.0
+Thank you for your order, please come again!
+-------------------------------
